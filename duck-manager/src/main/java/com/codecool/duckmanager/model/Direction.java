@@ -3,10 +3,10 @@ package com.codecool.duckmanager.model;
 import java.util.Random;
 
 public enum Direction {
-    NORTH(0, -1),
-    EAST(1, 0),
-    SOUTH(0, 1),
-    WEST(-1, 0);
+    NORTH(0, -2),
+    EAST(2, 0),
+    SOUTH(0, 2),
+    WEST(-2, 0);
 
     public final int dX;
     public final int dY;
