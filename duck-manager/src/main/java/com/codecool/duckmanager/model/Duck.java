@@ -23,7 +23,7 @@ public class Duck {
         coordinate.randomizeStartPositionInRange(xRange, yRange);
     }
 
-//    @Scheduled(fixedRate = 1000)
+    //    @Scheduled(fixedRate = 1000)
     public void changeCoordinatesRandomly() {
         Direction direction = Direction.getRandomDirection();
 
