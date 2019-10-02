@@ -3,9 +3,7 @@ package com.codecool.duckmanager.controller;
 import com.codecool.duckmanager.model.Duck;
 import com.codecool.duckmanager.model.Coordinate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,4 +35,21 @@ public class DuckController {
             return ducks;
         }
     }
+
+    @PostMapping("/kill")
+    public Duck killDuck(@RequestBody Coordinate coordinate) {
+        System.out.println(coordinate.getX());
+        System.out.println(coordinate.getY());
+        Duck duckToKill = null;
+        for (Duck duck : ducks) {
+            if (duck.getCoordinate().getX() == coordinate.getX() && duck.getCoordinate().getY() == coordinate.getY()) {
+                System.out.println("equal");
+                duckToKill = duck;
+            }
+        }
+        ducks.remove(duckToKill);
+        return duckToKill;
+    }
+
+
 }
