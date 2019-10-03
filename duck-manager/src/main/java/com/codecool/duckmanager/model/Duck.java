@@ -1,16 +1,20 @@
 package com.codecool.duckmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @Data
-@EnableScheduling
 public class Duck {
 
     private Integer id = 0;
     private static Integer instanceCounter = 0;
     private Coordinate coordinate;
+
+    @JsonIgnore
+    private Boolean didTouchLeftSide = true;
+    @JsonIgnore
+    private Boolean didTouchRightSide = false;
 
     public Duck() {
         instanceCounter++;
@@ -22,15 +26,42 @@ public class Duck {
         coordinate.randomizeStartPositionInRange(xRange, yRange);
     }
 
-    public void changeCoordinatesRandomly() {
-        Direction direction = Direction.getRandomDirection();
+//    public void changeCoordinatesRandomly() {
+//        Direction direction = Direction.getRandomDirection();
+//
+//        int x = this.getCoordinate().getX();
+//        int y = this.getCoordinate().getY();
+//
+//        x += direction.dX;
+//        y += direction.dY;
+//
+//        this.setCoordinate(new Coordinate(x, y));
+//    }
 
+
+
+
+    public void move() {
+        if (this.didTouchLeftSide) {
+            goRight();
+        } else {
+            goLeft();
+        }
+    }
+
+    private void goLeft() {
+        int stepLeft = Direction.WEST.getX();
         int x = this.getCoordinate().getX();
         int y = this.getCoordinate().getY();
+        x += stepLeft;
+        this.setCoordinate(new Coordinate(x, y));
+    }
 
-        x += direction.dX;
-        y += direction.dY;
-
+    private void goRight() {
+        int stepRight = Direction.EAST.getX();
+        int x = this.getCoordinate().getX();
+        int y = this.getCoordinate().getY();
+        x += stepRight;
         this.setCoordinate(new Coordinate(x, y));
     }
 

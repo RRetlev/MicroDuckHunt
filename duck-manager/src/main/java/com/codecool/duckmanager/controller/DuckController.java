@@ -2,7 +2,6 @@ package com.codecool.duckmanager.controller;
 
 import com.codecool.duckmanager.model.Duck;
 import com.codecool.duckmanager.model.Coordinate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -13,23 +12,33 @@ import java.util.List;
 public class DuckController {
 
 //    @Autowired
-//    RandomCoordinate randomCoordinate;
+//    Coordinate coordinate;
 
     private List<Duck> ducks = new ArrayList<>();
+    private int xRange = 640;
+    private int yRange = 480;
 
     @GetMapping("/ducks")
     public List<Duck> handleDucks() {
         if (ducks.isEmpty()) {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 1; i++) {
                 ducks.add(new Duck());
             }
             for (Duck duck : ducks) {
-                duck.randomizeStartPositionInRange(640, 480);
+                duck.randomizeStartPositionInRange(xRange, yRange);
             }
             return ducks;
         } else {
             for (Duck duck : ducks) {
-                duck.changeCoordinatesRandomly();
+                if (duck.getCoordinate().getX() == xRange) {
+                    duck.setDidTouchLeftSide(false);
+                    duck.setDidTouchRightSide(true);
+
+                } else if (duck.getCoordinate().getX() == 0) {
+                    duck.setDidTouchRightSide(false);
+                    duck.setDidTouchLeftSide(true);
+                }
+                duck.move();
             }
             return ducks;
         }
@@ -46,7 +55,7 @@ public class DuckController {
 
             int duckX = duck.getCoordinate().getX();
             int duckY = duck.getCoordinate().getY();
-//            duckX == shootX && duckY == shootY
+
             if (shootX >= duckX - hitBoxRange & shootX <= duckX + hitBoxRange
                     & shootY >= duckY - hitBoxRange & shootY <= duckY + hitBoxRange) {
                 System.out.println("equal");
