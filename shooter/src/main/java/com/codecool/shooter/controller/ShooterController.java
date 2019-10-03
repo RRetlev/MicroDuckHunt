@@ -16,6 +16,7 @@ public class ShooterController {
     @Autowired
     DuckManagerCaller duckCaller;
 
+    @CrossOrigin
     @PostMapping("/shoot")
     public DuckResult shootDuck(@RequestBody DuckCoordinatesResult duckCoordinates) {
         return duckCaller.tryToKillDuck(duckCoordinates);
