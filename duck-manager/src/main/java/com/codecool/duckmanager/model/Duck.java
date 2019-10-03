@@ -2,7 +2,6 @@ package com.codecool.duckmanager.model;
 
 import lombok.Data;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.scheduling.annotation.Scheduled;
 
 
 @Data
@@ -23,7 +22,6 @@ public class Duck {
         coordinate.randomizeStartPositionInRange(xRange, yRange);
     }
 
-    //    @Scheduled(fixedRate = 1000)
     public void changeCoordinatesRandomly() {
         Direction direction = Direction.getRandomDirection();
 

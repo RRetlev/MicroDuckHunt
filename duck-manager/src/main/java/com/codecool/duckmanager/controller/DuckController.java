@@ -15,11 +15,10 @@ public class DuckController {
 //    @Autowired
 //    RandomCoordinate randomCoordinate;
 
-    //    private Coordinate coordinate = new Coordinate(0,0);
     private List<Duck> ducks = new ArrayList<>();
 
     @GetMapping("/ducks")
-    public List<Duck> createDucks() {
+    public List<Duck> handleDucks() {
         if (ducks.isEmpty()) {
             for (int i = 0; i < 10; i++) {
                 ducks.add(new Duck());
@@ -38,8 +37,6 @@ public class DuckController {
 
     @PostMapping("/kill")
     public Duck killDuck(@RequestBody Coordinate coordinate) {
-        System.out.println(coordinate.getX());
-        System.out.println(coordinate.getY());
         Duck duckToKill = null;
         for (Duck duck : ducks) {
             if (duck.getCoordinate().getX() == coordinate.getX() && duck.getCoordinate().getY() == coordinate.getY()) {
