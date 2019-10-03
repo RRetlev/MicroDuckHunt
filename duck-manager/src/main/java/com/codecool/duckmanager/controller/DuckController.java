@@ -37,9 +37,18 @@ public class DuckController {
 
     @PostMapping("/kill")
     public Duck killDuck(@RequestBody Coordinate coordinate) {
+        int hitBoxRange = 5;
+        int shootX = coordinate.getX();
+        int shootY = coordinate.getY();
         Duck duckToKill = null;
+
         for (Duck duck : ducks) {
-            if (duck.getCoordinate().getX() == coordinate.getX() && duck.getCoordinate().getY() == coordinate.getY()) {
+
+            int duckX = duck.getCoordinate().getX();
+            int duckY = duck.getCoordinate().getY();
+//            duckX == shootX && duckY == shootY
+            if (shootX >= duckX - hitBoxRange & shootX <= duckX + hitBoxRange
+                    & shootY >= duckY - hitBoxRange & shootY <= duckY + hitBoxRange) {
                 System.out.println("equal");
                 duckToKill = duck;
             }
